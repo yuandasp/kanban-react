@@ -6,11 +6,14 @@ import * as Yup from "yup";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { AUTH_TOKEN, USER } from "../helpers/constant";
+import { useDispatch } from "react-redux";
+import { setUser } from "features/userSlice";
 
 function Login() {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   const loginSchema = Yup.object().shape({
     email: Yup.string()
       .required("This field is required")
@@ -36,7 +39,12 @@ function Login() {
       });
 
       setIsLoading(false);
-      navigate("/");
+      if (response.data?.token) {
+        localStorage.setItem(AUTH_TOKEN, response.data?.token);
+        localStorage.setItem(USER, JSON.stringify(response.data?.user));
+        dispatch(setUser(response.data?.data));
+        navigate("/");
+      }
     } catch (error) {
       Swal.fire({
         icon: "error",
