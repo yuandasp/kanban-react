@@ -14,6 +14,9 @@ export const todoSlice = createSlice({
       startDate: "",
       endDate: "",
     },
+    statusListToDo: [],
+    statusOnGoing: [],
+    statusDone: [],
   },
   reducers: {
     setTodos: (state, action) => {
@@ -22,10 +25,25 @@ export const todoSlice = createSlice({
     setTodoDetail: (state, action) => {
       state.todoDetail = action.payload;
     },
+    setStatusListToDo: (state, action) => {
+      state.statusListToDo = action.payload;
+    },
+    setStatusOnGoing: (state, action) => {
+      state.statusOnGoing = action.payload;
+    },
+    setStatusDone: (state, action) => {
+      state.statusDone = action.payload;
+    },
   },
 });
 
-export const { setTodos, setTodoDetail } = todoSlice.actions;
+export const {
+  setTodos,
+  setTodoDetail,
+  setStatusListToDo,
+  setStatusOnGoing,
+  setStatusDone,
+} = todoSlice.actions;
 
 export default todoSlice.reducer;
 
