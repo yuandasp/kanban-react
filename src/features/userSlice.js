@@ -9,9 +9,12 @@ export const userSlice = createSlice({
     setUser: (state, action) => {
       state.user = action.payload;
     },
+    setResetUser: (state, action) => {
+      state.resetUser = action.payload;
+    },
   },
 });
 
-export const { setUser } = userSlice.actions;
+export const { setUser, setResetUser } = userSlice.actions;
 
 export default userSlice.reducer;
