@@ -54,13 +54,11 @@ function AddTodoModal({ isOpen, onClose }) {
       confirmButtonText: "Add",
     });
     if (result.isConfirmed) {
-      console.log("AAA", formAddTodo);
       onSubmitAddTodo();
     }
   };
 
   const onSubmitAddTodo = async () => {
-    console.log("formAddTodo :", formAddTodo);
     try {
       setIsLoading(true);
       let response = await axios.post(
@@ -68,8 +66,6 @@ function AddTodoModal({ isOpen, onClose }) {
         formAddTodo,
         { headers: { authorization: `Bearer ${token}` } }
       );
-
-      console.log({ response });
 
       setIsLoading(false);
       onClose();
@@ -158,7 +154,11 @@ function AddTodoModal({ isOpen, onClose }) {
             </Select>
           </ModalBody>
           <ModalFooter>
-            <Button colorScheme="blue" onClick={onSubmitAddTodo}>
+            <Button
+              colorScheme="blue"
+              onClick={onSubmitAddTodo}
+              isLoading={isLoading}
+            >
               Save
             </Button>
           </ModalFooter>
