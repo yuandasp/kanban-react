@@ -9,11 +9,14 @@ import axios from "axios";
 import { AUTH_TOKEN, USER } from "../helpers/constant";
 import { useDispatch } from "react-redux";
 import { setUser } from "features/userSlice";
+import ForgotPasswordModal from "components/ForgotPasswordModal";
 
 function Login() {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [modalForgotPassword, setModalForgotPassword] = useState(false);
+
   const loginSchema = Yup.object().shape({
     email: Yup.string()
       .required("This field is required")
@@ -62,7 +65,7 @@ function Login() {
           email: "",
           password: "",
         }}
-        validationSchema={loginSchema}
+        validationschema={loginSchema}
         onSubmit={(value, actions) => {
           loginUser(value, actions);
         }}
@@ -144,14 +147,21 @@ function Login() {
                           type="submit"
                           className="w-full rounded-md py-6 text-white button-primary"
                           text="Log in"
-                        ></Button>
-
+                        />
+                        <div className="flex flex-wrap gap-2 items-end justify-end my-4">
+                          <p
+                            onClick={() => setModalForgotPassword(true)}
+                            className="cursor-pointer text-black text-end font-bold text-md lg:text-lg hover:text-blue-600"
+                          >
+                            Forgot password?
+                          </p>
+                        </div>
                         <div className="flex flex-wrap gap-2 items-end justify-end my-4">
                           <p className="text-color-green text-end text-base lg:text-md">
                             Don't have an account?
                           </p>
                           <Link to={"/register"}>
-                            <p className="text-color-green text-end font-bold text-md lg:text-lg hover:text-cyan-900">
+                            <p className="text-black text-end font-bold text-md lg:text-lg hover:text-blue-600">
                               Register
                             </p>
                           </Link>
@@ -165,6 +175,11 @@ function Login() {
           );
         }}
       </Formik>
+      <ForgotPasswordModal
+        isOpen={modalForgotPassword}
+        onClose={() => setModalForgotPassword(false)}
+        className="mx-4 sm:mx-0"
+      />
     </div>
   );
 }

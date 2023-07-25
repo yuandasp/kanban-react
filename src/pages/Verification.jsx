@@ -34,6 +34,7 @@ function Verification() {
       });
     }
   };
+
   useEffect(() => {
     tokenVerification();
   }, []);

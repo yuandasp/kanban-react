@@ -59,7 +59,7 @@ function Register() {
           email: "",
           password: "",
         }}
-        validationSchema={registerSchema}
+        validationschema={registerSchema}
         onSubmit={(value, actions) => {
           registerUser(value, actions);
         }}
