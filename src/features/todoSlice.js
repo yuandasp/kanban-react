@@ -1,12 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { AUTH_TOKEN } from "../helpers/constant";
+import Swal from "sweetalert2";
 
 export const todoSlice = createSlice({
   name: "todo",
   initialState: {
     todos: [],
     todoDetail: {
+      idtodo: "",
       title: "",
       description: "",
       idPriority: "",
@@ -54,8 +56,28 @@ export function getAllTodos() {
       `${process.env.REACT_APP_API_BE}/todo/all`,
       { headers: { authorization: `Bearer ${token}` } }
     );
-    console.log({ response });
+    // console.log({ response });
     dispatch(setTodos(response.data.data));
     return response.data?.data;
   };
 }
+
+// export function fetchDetailTodo(idtodo) {
+//   return async (dispatch) => {
+//     try {
+//       const token = localStorage.getItem(AUTH_TOKEN);
+//       const response = await axios.get(
+//         `${process.env.REACT_APP_API_BE}/todo/${idtodo}`,
+//         { headers: { authorization: `Bearer ${token}` } }
+//       );
+//       // console.log("AAA", response.data.data[0]);
+//       dispatch(setTodoDetail(response.data.data[0]));
+//     } catch (error) {
+//       Swal.fire({
+//         icon: "error",
+//         title: "Oops...",
+//         text: error.response?.data?.message,
+//       });
+//     }
+//   };
+// }
