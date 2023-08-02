@@ -12,6 +12,7 @@ import {
   Textarea,
   Divider,
   Select,
+  FormControl,
 } from "@chakra-ui/react";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
@@ -67,6 +68,8 @@ function AddTodoModal({ isOpen, onClose }) {
         { headers: { authorization: `Bearer ${token}` } }
       );
 
+      console.log("AAA", response);
+
       setIsLoading(false);
       onClose();
       window.location.reload();
@@ -85,30 +88,31 @@ function AddTodoModal({ isOpen, onClose }) {
           error.response?.data?.message?.message || "Something went wrong!!",
       });
       setIsLoading(false);
-      navigate("/");
     }
   };
 
   return (
     <div>
       <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent>
+        <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px)" />
+        <ModalContent className="dark:bg-slate-700 dark:text-slate-300">
           <ModalHeader>Todo</ModalHeader>
           <ModalCloseButton />
           <Divider />
           <ModalBody>
             <p className="my-2 font-bold">Title</p>
-            <Input
-              placeholder="Title"
-              className="mb-4"
-              name="title"
-              onChange={onChangeInput}
-            />
+            <FormControl isRequired>
+              <Input
+                placeholder="Title"
+                className="mb-4 dark:bg-slate-200 dark:text-slate-900"
+                name="title"
+                onChange={onChangeInput}
+              />
+            </FormControl>
             <p className="mb-2 font-bold">Description</p>
             <Textarea
               placeholder="Add description"
-              className="mb-4"
+              className="mb-4 dark:bg-slate-200 dark:text-slate-900"
               name="description"
               onChange={onChangeInput}
             />
@@ -117,7 +121,7 @@ function AddTodoModal({ isOpen, onClose }) {
               placeholder="Select Start Date"
               size="md"
               type="datetime-local"
-              className="mb-4"
+              className="mb-4 dark:bg-slate-200 dark:text-slate-900"
               name="startDate"
               onChange={onChangeInput}
             />
@@ -126,25 +130,25 @@ function AddTodoModal({ isOpen, onClose }) {
               placeholder="Select Start Date"
               size="md"
               type="datetime-local"
-              className="mb-4"
+              className="mb-4 dark:bg-slate-200 dark:text-slate-900"
               name="endDate"
               onChange={onChangeInput}
             />
             <p className="mb-2 font-bold">Status</p>
             <Select
               placeholder="-- select option --"
-              className="mb-2"
+              className="mb-2 dark:bg-slate-200 dark:text-slate-900"
               name="idStatus"
               onChange={onChangeInput}
             >
-              <option value="1">On Going</option>
-              <option value="2">Done</option>
-              <option value="3">Backlog</option>
+              <option value="1">Todo</option>
+              <option value="2">On Going</option>
+              <option value="3">Done</option>
             </Select>
             <p className="mb-2 font-bold">Priority</p>
             <Select
               placeholder="-- select option --"
-              className="mb-2"
+              className="mb-2 dark:bg-slate-200 dark:text-slate-900"
               name="idPriority"
               onChange={onChangeInput}
             >

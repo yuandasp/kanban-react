@@ -6,7 +6,7 @@ function LayoutWithNavbar() {
   return (
     <div>
       <Navbar />
-      <div style={{ minHeight: "70vh" }}>
+      <div className="home-bg">
         <Outlet />
       </div>
     </div>
