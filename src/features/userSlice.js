@@ -25,7 +25,6 @@ export function fetchUser() {
     let response = await axios.get(`${process.env.REACT_APP_API_BE}/user/`, {
       headers: { authorization: `Bearer ${token}` },
     });
-    console.log("response", response.data);
     dispatch(setUser(response.data));
   };
 }

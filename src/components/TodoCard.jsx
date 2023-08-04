@@ -11,35 +11,25 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import AddTodoModal from "components/AddTodoModal";
-import {
-  fetchDetailTodo,
-  getAllTodos,
-  setStatusListToDo,
-  setTodoDetail,
-} from "features/todoSlice";
+import { getAllTodos, setTodoDetail } from "features/todoSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
-import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";
 import DetailTodo from "pages/DetailTodo";
 
 function TodoCard() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   let [searchParams, setSearchParams] = useSearchParams();
   const [isAddTodoOpenModal, setIsAddTodoOpenModal] = useState(false);
   const [isEditTodoOpenModal, setIsEditTodoOpenModal] = useState(false);
   const todos = useSelector((state) => state.todo.todos);
-
   const statusTodo = todos.filter((todo) => todo.status === "todo");
   const statusOnGoing = todos.filter((todo) => todo.status === "on going");
   const statusDone = todos.filter((todo) => todo.status === "done");
 
   const handleDetailTodo = (todo) => {
-    // console.log(idtodo);
     setSearchParams({ id: todo.idtodo });
     setIsEditTodoOpenModal(true);
-    // dispatch(fetchDetailTodo(idtodo));
     dispatch(setTodoDetail(todo));
   };
 
@@ -50,11 +40,11 @@ function TodoCard() {
   return (
     <div>
       <SimpleGrid
-        spacing={4}
+        spacing={8}
         templateColumns="repeat(3,1fr)"
-        className="py-11 px-32"
+        className="py-11 px-11 sm:px-24"
       >
-        <Card className="bg-color-card dark:overflow-hidden">
+        <Card className="bg-color-card dark:overflow-hidden" minW="xs">
           <CardHeader className="dark:bg-slate-700">
             <Heading size="md" className="text-slate-900 dark:text-white">
               Todo
@@ -63,6 +53,7 @@ function TodoCard() {
           <CardBody className="flex flex-col gap-8 dark:bg-slate-700">
             {statusTodo.map((todo) => (
               <Card
+                key={todo.idtodo}
                 onClick={() => {
                   handleDetailTodo(todo);
                 }}
@@ -84,7 +75,7 @@ function TodoCard() {
             </Button>
           </CardFooter>
         </Card>
-        <Card className="bg-color-card dark:overflow-hidden">
+        <Card className="bg-color-card dark:overflow-hidden" minW="xs">
           <CardHeader className="dark:bg-slate-700">
             <Heading size="md" className="text-slate-900 dark:text-white">
               On going
@@ -93,6 +84,7 @@ function TodoCard() {
           <CardBody className="flex flex-col gap-8 dark:bg-slate-700">
             {statusOnGoing.map((todo) => (
               <Card
+                key={todo.idtodo}
                 onClick={() => {
                   handleDetailTodo(todo);
                 }}
@@ -113,7 +105,7 @@ function TodoCard() {
             </Button>
           </CardFooter>
         </Card>
-        <Card className="bg-color-card dark:overflow-hidden">
+        <Card className="bg-color-card dark:overflow-hidden" minW="xs">
           <CardHeader className="dark:bg-slate-700">
             <Heading size="md" className="text-slate-900 dark:text-white">
               Done
@@ -122,6 +114,7 @@ function TodoCard() {
           <CardBody className="flex flex-col gap-8 dark:bg-slate-700">
             {statusDone.map((todo) => (
               <Card
+                key={todo.idtodo}
                 onClick={() => {
                   handleDetailTodo(todo);
                 }}

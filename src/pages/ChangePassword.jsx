@@ -49,7 +49,6 @@ function ChangePassword() {
           },
         }
       );
-      console.log({ response });
 
       Swal.fire({
         icon: "success",

@@ -27,8 +27,6 @@ code {
 }
 
 .bg-color-card {
-  /* background-color: #cdd5e0 !important; */
-  /* background-color: #dbe8fa !important; */
   background-color: #d6e4f8 !important;
 }
 
@@ -39,4 +37,8 @@ code {
 
 .radius-card {
   border-radius: 8px !important;
+}
+
+.swal2-container {
+  z-index: 9999;
 }
