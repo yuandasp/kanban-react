@@ -28,10 +28,11 @@ function DetailTodo({ isOpen, onClose }) {
     idtodo: "",
     title: "",
     description: "",
-    idPriority: "",
-    idStatus: "",
+    idPriority: undefined,
+    idStatus: undefined,
     startDate: "",
     endDate: "",
+    status: "",
   });
   const todo = useSelector((state) => state.todo.todoDetail);
 
@@ -127,6 +128,8 @@ function DetailTodo({ isOpen, onClose }) {
     }
   }, [isOpen, todo]);
 
+  console.log("todos", todo);
+
   return (
     <div className="w-screen h-full flex justify-between bg-slate-50">
       <Modal isOpen={isOpen} onClose={onClose}>
@@ -178,9 +181,9 @@ function DetailTodo({ isOpen, onClose }) {
               onChange={onChangeInput}
               id="idStatus"
             >
-              <option value="1">Todo</option>
-              <option value="2">On Going</option>
-              <option value="3">Done</option>
+              <option value={1}>Todo</option>
+              <option value={2}>On Going</option>
+              <option value={3}>Done</option>
             </Select>
             <p className="mb-2 font-bold">Priority</p>
             <Select
@@ -191,9 +194,9 @@ function DetailTodo({ isOpen, onClose }) {
               }
               onChange={onChangeInput}
             >
-              <option value="1">Low</option>
-              <option value="2">Medium</option>
-              <option value="3">High</option>
+              <option value={1}>Low</option>
+              <option value={2}>Medium</option>
+              <option value={3}>High</option>
             </Select>
           </ModalBody>
           <ModalFooter>

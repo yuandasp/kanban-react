@@ -14,6 +14,7 @@ export const todoSlice = createSlice({
       idStatus: "",
       startDate: "",
       endDate: "",
+      status: "",
     },
   },
   reducers: {
