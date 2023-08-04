@@ -27,7 +27,9 @@ code {
 }
 
 .bg-color-card {
-  background-color: #cdd5e0 !important;
+  /* background-color: #cdd5e0 !important; */
+  /* background-color: #dbe8fa !important; */
+  background-color: #d6e4f8 !important;
 }
 
 .button-add-todo {

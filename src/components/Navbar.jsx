@@ -66,7 +66,7 @@ function Navbar() {
   }, [theme]);
 
   return (
-    <div className="sticky top-0 z-40 h-24 bg-slate-500 dark:bg-slate-900 flex justify-between px-5 sm:px-24 items-center text-color-green shadow-navbar border-b-gray-100 border-b-2">
+    <div className="sticky top-0 z-40 h-24 bg-[#4880C8] dark:bg-slate-900 flex justify-between px-5 sm:px-24 items-center text-color-green shadow-navbar border-b-gray-100 border-b-2">
       {theme === "light" ? (
         <Link to="/">
           <img src={logoLight} alt="" className="h-20" />

@@ -54,7 +54,7 @@ function TodoCard() {
         templateColumns="repeat(3,1fr)"
         className="py-11 px-32"
       >
-        <Card className="bg-color-card">
+        <Card className="bg-color-card dark:overflow-hidden">
           <CardHeader className="dark:bg-slate-700">
             <Heading size="md" className="text-slate-900 dark:text-white">
               Todo
@@ -66,7 +66,7 @@ function TodoCard() {
                 onClick={() => {
                   handleDetailTodo(todo);
                 }}
-                className="hover:bg-slate-700 dark:hover:bg-slate-500 dark:hover:text-white hover:text-white  dark:bg-slate-300 dark:text-slate-900"
+                className="hover:bg-blue-400 dark:hover:bg-slate-500 dark:hover:text-white hover:text-white  dark:bg-slate-300 dark:text-slate-900"
               >
                 <CardBody>
                   <Text>{todo.description}</Text>
@@ -84,7 +84,7 @@ function TodoCard() {
             </Button>
           </CardFooter>
         </Card>
-        <Card className="bg-color-card">
+        <Card className="bg-color-card dark:overflow-hidden">
           <CardHeader className="dark:bg-slate-700">
             <Heading size="md" className="text-slate-900 dark:text-white">
               On going
@@ -96,7 +96,7 @@ function TodoCard() {
                 onClick={() => {
                   handleDetailTodo(todo);
                 }}
-                className="hover:bg-slate-700 dark:hover:bg-slate-500 dark:hover:text-white hover:text-white  dark:bg-slate-300 dark:text-slate-900"
+                className="hover:bg-blue-400 dark:hover:bg-slate-500 dark:hover:text-white hover:text-white  dark:bg-slate-300 dark:text-slate-900"
               >
                 <CardBody>
                   <Text>{todo.description}</Text>
@@ -113,7 +113,7 @@ function TodoCard() {
             </Button>
           </CardFooter>
         </Card>
-        <Card className="bg-color-card">
+        <Card className="bg-color-card dark:overflow-hidden">
           <CardHeader className="dark:bg-slate-700">
             <Heading size="md" className="text-slate-900 dark:text-white">
               Done
@@ -125,7 +125,7 @@ function TodoCard() {
                 onClick={() => {
                   handleDetailTodo(todo);
                 }}
-                className="hover:bg-slate-700 dark:hover:bg-slate-500 dark:hover:text-white hover:text-white  dark:bg-slate-300 dark:text-slate-900"
+                className="hover:bg-blue-400 dark:hover:bg-slate-500 dark:hover:text-white hover:text-white  dark:bg-slate-300 dark:text-slate-900"
               >
                 <CardBody>
                   <Text>{todo.description}</Text>
