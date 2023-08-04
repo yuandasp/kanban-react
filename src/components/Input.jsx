@@ -1,6 +1,6 @@
 import React from "react";
 
-function Input({ field, form: { touched, errors }, ...props }) {
+function Input({ field, ...props }) {
   return (
     <input
       type="text"

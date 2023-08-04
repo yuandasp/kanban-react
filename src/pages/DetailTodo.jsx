@@ -14,17 +14,14 @@ import {
   Select,
 } from "@chakra-ui/react";
 import Swal from "sweetalert2";
-import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { AUTH_TOKEN } from "../helpers/constant";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchDetailTodo, getAllTodos } from "features/todoSlice";
+import { getAllTodos } from "features/todoSlice";
 import moment from "moment";
 
 function DetailTodo({ isOpen, onClose }) {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const params = useParams();
   const [isLoading, setIsLoading] = useState(false);
   const token = localStorage.getItem(AUTH_TOKEN);
   const [formEditTodo, setFormEditTodo] = useState({
@@ -38,31 +35,12 @@ function DetailTodo({ isOpen, onClose }) {
   });
   const todo = useSelector((state) => state.todo.todoDetail);
 
-  // console.log("todo", todo);
-
   const onChangeInput = (event) => {
-    console.log({ event });
-
     setFormEditTodo({
       ...formEditTodo,
       [event.target.name]: event.target.value,
     });
   };
-
-  // const handleConfirmationEditTodo = async () => {
-  //   const result = await Swal.fire({
-  //     title: "Are you sure?",
-  //     text: "You want to edit todo?",
-  //     icon: "warning",
-  //     showCancelButton: true,
-  //     confirmButtonColor: "#3085d6",
-  //     cancelButtonColor: "#d33",
-  //     confirmButtonText: "Edit",
-  //   });
-  //   if (result.isConfirmed) {
-  //     onSubmitEditTodo();
-  //   }
-  // };
 
   const onSubmitEditTodo = async () => {
     const idTodo = todo.idtodo;
@@ -75,23 +53,20 @@ function DetailTodo({ isOpen, onClose }) {
       );
 
       setIsLoading(false);
-      onClose();
-      window.location.reload();
-
       Swal.fire({
         icon: "success",
         title: "Success!",
-        text: response.data?.message,
+        text: "Edit Success",
       });
-    } catch (error) {
       onClose();
+      dispatch(getAllTodos());
+    } catch (error) {
+      setIsLoading(false);
       Swal.fire({
         icon: "error",
         title: "Oops...",
-        text:
-          error.response?.data?.message?.message || "Something went wrong!!",
+        text: error.response?.data?.message || "Something went wrong!!",
       });
-      setIsLoading(false);
     }
   };
 
@@ -127,7 +102,6 @@ function DetailTodo({ isOpen, onClose }) {
         title: "Success!",
         text: "Already delete",
       });
-      // window.location.reload();
       dispatch(getAllTodos());
     } catch (error) {
       onClose();
@@ -142,12 +116,11 @@ function DetailTodo({ isOpen, onClose }) {
 
   useEffect(() => {
     if (isOpen && todo) {
-      // console.log(moment(todo.start_date).format("YYYY-MM-DDTHH:mm"));
       setFormEditTodo({
         title: todo?.title,
         description: todo?.description,
-        idPriority: todo?.label,
-        idStatus: todo?.status,
+        idPriority: todo?.idpriority,
+        idStatus: todo?.idstatus,
         startDate: moment(todo.start_date).format("YYYY-MM-DDTHH:mm"),
         endDate: moment(todo.end).format("YYYY-MM-DDTHH:mm"),
       });
@@ -158,7 +131,7 @@ function DetailTodo({ isOpen, onClose }) {
     <div className="w-screen h-full flex justify-between bg-slate-50">
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px)" />
-        <ModalContent className="dark:bg-slate-700 dark:text-slate-300">
+        <ModalContent className="dark:bg-slate-700 dark:text-slate-300 mx-10">
           <ModalHeader>Edit Your Todo</ModalHeader>
           <ModalCloseButton />
           <Divider />
@@ -181,7 +154,6 @@ function DetailTodo({ isOpen, onClose }) {
             />
             <p className="mb-2 font-bold">Start Date</p>
             <Input
-              // placeholder="Select Start Date"
               size="md"
               type="datetime-local"
               className="mb-4 dark:bg-slate-200 dark:text-slate-900"
@@ -191,7 +163,6 @@ function DetailTodo({ isOpen, onClose }) {
             />
             <p className="mb-2 font-bold">End Date</p>
             <Input
-              // placeholder="Select Start Date"
               size="md"
               type="datetime-local"
               className="mb-4 dark:bg-slate-200 dark:text-slate-900"
@@ -201,15 +172,11 @@ function DetailTodo({ isOpen, onClose }) {
             />
             <p className="mb-2 font-bold">Status</p>
             <Select
-              // placeholder={
-              //   formEditTodo.idStatus
-              //     ? formEditTodo.idStatus
-              //     : "-- select option --"
-              // }
               className="mb-2 dark:bg-slate-200 dark:text-slate-900"
               name="idStatus"
               value={formEditTodo.idStatus}
               onChange={onChangeInput}
+              id="idStatus"
             >
               <option value="1">Todo</option>
               <option value="2">On Going</option>
@@ -217,7 +184,6 @@ function DetailTodo({ isOpen, onClose }) {
             </Select>
             <p className="mb-2 font-bold">Priority</p>
             <Select
-              // placeholder="-- select option --"
               className="mb-2 dark:bg-slate-200 dark:text-slate-900"
               name="idPriority"
               value={

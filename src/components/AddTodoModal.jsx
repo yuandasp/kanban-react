@@ -15,12 +15,10 @@ import {
   FormControl,
 } from "@chakra-ui/react";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AUTH_TOKEN } from "../helpers/constant";
 
 function AddTodoModal({ isOpen, onClose }) {
-  const navigate = useNavigate();
   const token = localStorage.getItem(AUTH_TOKEN);
   const [isLoading, setIsLoading] = useState(false);
   const [formAddTodo, setFormAddTodo] = useState({
@@ -67,9 +65,6 @@ function AddTodoModal({ isOpen, onClose }) {
         formAddTodo,
         { headers: { authorization: `Bearer ${token}` } }
       );
-
-      console.log("AAA", response);
-
       setIsLoading(false);
       onClose();
       window.location.reload();
@@ -80,14 +75,12 @@ function AddTodoModal({ isOpen, onClose }) {
         text: response.data?.message,
       });
     } catch (error) {
-      onClose();
+      setIsLoading(false);
       Swal.fire({
         icon: "error",
         title: "Oops...",
-        text:
-          error.response?.data?.message?.message || "Something went wrong!!",
+        text: error.response?.data?.message || "Something went wrong!!",
       });
-      setIsLoading(false);
     }
   };
 
@@ -95,7 +88,7 @@ function AddTodoModal({ isOpen, onClose }) {
     <div>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px)" />
-        <ModalContent className="dark:bg-slate-700 dark:text-slate-300">
+        <ModalContent className="dark:bg-slate-700 dark:text-slate-300 mx-10">
           <ModalHeader>Todo</ModalHeader>
           <ModalCloseButton />
           <Divider />
