@@ -21,3 +21,33 @@ code {
   -webkit-box-shadow: 9px 10px 23px -10px rgba(0, 0, 0, 0.5);
   -moz-box-shadow: 9px 10px 23px -10px rgba(0, 0, 0, 0.5);
 }
+
+.home-bg {
+  height: calc(100vh - 94px);
+}
+
+.bg-color-card {
+  background-color: #d6e4f8 !important;
+}
+
+.button-add-todo {
+  background-color: #3f5793 !important;
+  color: white !important;
+}
+
+.radius-card {
+  border-radius: 8px !important;
+}
+
+.swal2-container {
+  z-index: 9999;
+}
+
+.todo-card-list::-webkit-scrollbar {
+  display: none;
+}
+
+.todo-card-list {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}

@@ -6,6 +6,8 @@ function Button({ text = "Submit", color = "blue" }) {
       return "bg-red-600";
     } else if (color === "yellow") {
       return "bg-yellow-600";
+    } else if (color === "gray") {
+      return "bg-slate-200";
     }
     return "bg-blue-600";
   };
