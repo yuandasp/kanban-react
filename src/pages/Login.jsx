@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import Input from "components/Input";
 import Button from "components/Button";
 import { Link, useNavigate } from "react-router-dom";
@@ -10,6 +10,10 @@ import { AUTH_TOKEN, USER } from "../helpers/constant";
 import { useDispatch } from "react-redux";
 import { setUser } from "features/userSlice";
 import ForgotPasswordModal from "components/ForgotPasswordModal";
+import { GoogleLoginButton } from "react-social-login-buttons";
+import { LoginSocialGoogle } from "reactjs-social-login";
+import iconGoogle from "assets/icon-google.webp";
+import Cookies from "js-cookie";
 
 function Login() {
   const [isLoading, setIsLoading] = useState(false);
@@ -57,6 +61,41 @@ function Login() {
       setIsLoading(false);
     }
   };
+
+  const verifyGoogleSignInHandler = async (data) => {
+    try {
+      let response = await axios.post(
+        `${process.env.REACT_APP_API_BE}/auth/google`,
+        {},
+        { headers: { token: data.credential } }
+      );
+
+      Swal.fire({
+        icon: "success",
+        title: "Success!",
+        text: response.data.message,
+        footer: "",
+      });
+
+      if (response.data?.token) {
+        localStorage.setItem(AUTH_TOKEN, response.data?.token);
+        localStorage.setItem(USER, JSON.stringify(response.data?.user));
+        dispatch(setUser(response.data?.data));
+        navigate("/");
+      }
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: error.response.data?.message || "Something went wrong!!",
+      });
+      setIsLoading(false);
+    }
+  };
+
+  const onLoginStart = useCallback(() => {
+    Cookies.remove("g_state");
+  }, []);
 
   return (
     <div>
@@ -148,6 +187,27 @@ function Login() {
                           className="w-full rounded-md py-6 text-white button-primary"
                           text="Log in"
                         />
+                        <div>
+                          <LoginSocialGoogle
+                            client_id={process.env.REACT_APP_CLIENT_ID}
+                            onLoginStart={onLoginStart}
+                            redirect_uri={"http://localhost:3000/login/"}
+                            scope="openid profile email"
+                            discoveryDocs="claims_supported"
+                            access_type="offline"
+                            isOnlyGetToken={true}
+                            typeResponse="idToken"
+                            ux_mode="redirect"
+                            onResolve={({ provider, data }) => {
+                              verifyGoogleSignInHandler(data);
+                            }}
+                          >
+                            <div className="flex h-10 gap-4 border-2 p-2 rounded-md justify-center my-4 cursor-pointer">
+                              <img src={iconGoogle} alt="" />
+                              <p>Log in with Google</p>
+                            </div>
+                          </LoginSocialGoogle>
+                        </div>
                         <div className="flex flex-wrap gap-2 items-end justify-end my-4">
                           <p
                             onClick={() => setModalForgotPassword(true)}
@@ -175,6 +235,7 @@ function Login() {
           );
         }}
       </Formik>
+
       <ForgotPasswordModal
         isOpen={modalForgotPassword}
         onClose={() => setModalForgotPassword(false)}
