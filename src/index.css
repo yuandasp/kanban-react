@@ -42,3 +42,12 @@ code {
 .swal2-container {
   z-index: 9999;
 }
+
+.todo-card-list::-webkit-scrollbar {
+  display: none;
+}
+
+.todo-card-list {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}

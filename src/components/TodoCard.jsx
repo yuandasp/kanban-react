@@ -42,7 +42,7 @@ function TodoCard() {
       <SimpleGrid
         spacing={8}
         templateColumns="repeat(3,1fr)"
-        className="py-11 px-11 sm:px-24"
+        className="py-11 px-11 sm:px-24 overflow-scroll todo-card-list"
       >
         <Card className="bg-color-card dark:overflow-hidden" minW="xs">
           <CardHeader className="dark:bg-slate-700">

@@ -13,16 +13,23 @@ import { fetchUser, setResetUser } from "features/userSlice";
 import Swal from "sweetalert2";
 import logo from "assets/logo-kanban-darkmode.png";
 import logoLight from "assets/logo-kanban-lightmode.png";
+import { THEME } from "helpers/constant";
 
 function Navbar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
-  const [theme, setTheme] = useState(null);
+  const [theme, setTheme] = useState("light");
   const [isLoading, setIsLoading] = useState(false);
 
   const handleThemeSwitch = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
+    if (theme === "light") {
+      localStorage.setItem("theme", "dark");
+      setTheme("dark");
+    } else {
+      setTheme("light");
+      localStorage.setItem("theme", "light");
+    }
   };
 
   const handleLogout = () => {
@@ -49,11 +56,17 @@ function Navbar() {
   }, []);
 
   useEffect(() => {
-    if (window.matchMedia(`(prefers-color-scheme: dark)`).matches) {
-      setTheme("dark");
-    } else {
-      setTheme("light");
-    }
+    const selectedTheme = localStorage.getItem("theme");
+    console.log({ selectedTheme });
+    setTheme(selectedTheme || "light");
+
+    // if (window.matchMedia(`(prefers-color-scheme: dark)`).matches) {
+    //   setTheme("dark");
+    //   localStorage.setItem("theme", "dark");
+    // } else {
+    //   setTheme("light");
+    //   localStorage.setItem("theme", "light");
+    // }
   }, []);
 
   useEffect(() => {
