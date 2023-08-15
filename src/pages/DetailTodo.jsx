@@ -128,8 +128,6 @@ function DetailTodo({ isOpen, onClose }) {
     }
   }, [isOpen, todo]);
 
-  console.log("todos", todo);
-
   return (
     <div className="w-screen h-full flex justify-between bg-slate-50">
       <Modal isOpen={isOpen} onClose={onClose}>
