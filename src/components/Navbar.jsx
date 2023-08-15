@@ -13,7 +13,6 @@ import { fetchUser, setResetUser } from "features/userSlice";
 import Swal from "sweetalert2";
 import logo from "assets/logo-kanban-darkmode.png";
 import logoLight from "assets/logo-kanban-lightmode.png";
-import { THEME } from "helpers/constant";
 
 function Navbar() {
   const navigate = useNavigate();
@@ -59,14 +58,6 @@ function Navbar() {
     const selectedTheme = localStorage.getItem("theme");
     console.log({ selectedTheme });
     setTheme(selectedTheme || "light");
-
-    // if (window.matchMedia(`(prefers-color-scheme: dark)`).matches) {
-    //   setTheme("dark");
-    //   localStorage.setItem("theme", "dark");
-    // } else {
-    //   setTheme("light");
-    //   localStorage.setItem("theme", "light");
-    // }
   }, []);
 
   useEffect(() => {
