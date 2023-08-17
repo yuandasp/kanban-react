@@ -45,11 +45,20 @@ function DetailTodo({ isOpen, onClose }) {
 
   const onSubmitEditTodo = async () => {
     const idTodo = todo.idtodo;
+
     try {
       setIsLoading(true);
       let response = await axios.put(
         `${process.env.REACT_APP_API_BE}/todo/${idTodo}`,
-        formEditTodo,
+        {
+          ...formEditTodo,
+          startDate: moment
+            .utc(moment(formEditTodo.startDate, "YYYY-MM-DDTHH:mm"))
+            .format("YYYY-MM-DDTHH:mm"),
+          endDate: moment
+            .utc(moment(formEditTodo.endDate, "YYYY-MM-DDTHH:mm"))
+            .format("YYYY-MM-DDTHH:mm"),
+        },
         { headers: { authorization: `Bearer ${token}` } }
       );
 
