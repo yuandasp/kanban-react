@@ -123,7 +123,7 @@ function DetailTodo({ isOpen, onClose }) {
         idPriority: todo?.idpriority,
         idStatus: todo?.idstatus,
         startDate: moment(todo.start_date).format("YYYY-MM-DDTHH:mm"),
-        endDate: moment(todo.end).format("YYYY-MM-DDTHH:mm"),
+        endDate: moment(todo.end_date).format("YYYY-MM-DDTHH:mm"),
       });
     }
   }, [isOpen, todo]);
